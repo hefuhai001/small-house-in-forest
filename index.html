@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#18241c" />
+    <meta
+      name="description"
+      content="苔语小屋：一座藏在森林空地上的三维立体模型，有向日葵、蝴蝶、蜜蜂和会变换的天气。"
+    />
+    <title>苔语小屋 · Moss &amp; Meadow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Karla:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-weather="sunny">
+    <canvas id="scene" aria-label="一片森林空地，中央是亮着灯的小屋，四周长满向日葵"></canvas>
+
+    <div class="scrim scrim--top" aria-hidden="true"></div>
+    <div class="scrim scrim--bottom" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="interface">
+      <header class="brand">
+        <p class="brand__eyebrow">
+          <span class="brand__rule"></span>
+          A WOODLAND DIORAMA · 01
+        </p>
+        <h1 class="brand__title">苔语小屋</h1>
+        <p class="brand__subtitle">林间有一盏灯，正为你亮着。</p>
+      </header>
+
+      <section class="weather-panel" aria-label="天气控制">
+        <div class="weather-panel__heading">
+          <span>天气</span>
+          <span class="weather-panel__note">WEATHER</span>
+        </div>
+        <div class="weather-switch" role="group" aria-label="切换场景天气">
+          <button class="weather-btn is-active" type="button" data-weather="sunny" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2"></circle>
+              <path d="M12 2.5v2.1M12 19.4v2.1M2.5 12h2.1M19.4 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"></path>
+            </svg>
+            <span class="weather-btn__label">晴日</span>
+            <span class="weather-btn__en">CLEAR</span>
+          </button>
+          <button class="weather-btn" type="button" data-weather="misty" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 9.2c2.8-2 5.4-2 8 0s5.2 2 8 0M3 13c2.8-2 5.4-2 8 0s5.2 2 8 0M3 16.8c2.8-2 5.4-2 8 0s5.2 2 8 0"></path>
+            </svg>
+            <span class="weather-btn__label">薄雾</span>
+            <span class="weather-btn__en">MIST</span>
+          </button>
+          <button class="weather-btn" type="button" data-weather="dusk" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 18.2h18M6.6 15.2a5.4 5.4 0 0 1 10.8 0"></path>
+              <path d="M12 5.3v2M4.9 8l1.5 1.4M19.1 8l-1.5 1.4"></path>
+            </svg>
+            <span class="weather-btn__label">黄昏</span>
+            <span class="weather-btn__en">DUSK</span>
+          </button>
+          <button class="weather-btn" type="button" data-weather="rainy" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.2 15.2h9.1a3.3 3.3 0 0 0 .3-6.6 5 5 0 0 0-9.5-1 3.8 3.8 0 0 0 .1 7.6Z"></path>
+              <path d="m8.5 17.7-.7 2.1M12.3 17.7l-.7 2.1M16.1 17.7l-.7 2.1"></path>
+            </svg>
+            <span class="weather-btn__label">细雨</span>
+            <span class="weather-btn__en">RAIN</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="scene-hint" aria-hidden="true">
+        <span class="scene-hint__icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 11V5.8a1.4 1.4 0 0 1 2.8 0V10M11.8 9.9V4.7a1.4 1.4 0 0 1 2.8 0v5.2M14.6 10V6.2a1.4 1.4 0 0 1 2.8 0v6.6"></path>
+            <path d="M9 10.2 7.6 8.9a1.4 1.4 0 0 0-2 2l3.7 5.8c1 1.7 2.5 2.6 4.6 2.6h1.4a4.7 4.7 0 0 0 4.7-4.7v-1.2"></path>
+          </svg>
+        </span>
+        <span>拖拽环视</span>
+        <i></i>
+        <span>滚轮靠近</span>
+      </div>
+
+      <div class="status-pill" role="status" aria-live="polite">
+        <span class="status-pill__dot"></span>
+        <span id="weather-readout">阳光正穿过树冠</span>
+      </div>
+
+      <button class="orbit-toggle" id="orbit-toggle" type="button" aria-pressed="false">
+        <span class="orbit-toggle__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 12a8 8 0 1 1-2.5-5.8"></path>
+            <path d="M20 3.8v4.4h-4.4"></path>
+          </svg>
+        </span>
+        <span class="orbit-toggle__text">
+          <span>自动巡游</span>
+          <small>AUTO ORBIT</small>
+        </span>
+      </button>
+    </main>
+
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__mark">
+          <svg viewBox="0 0 48 48">
+            <path d="M39 8.5C25 9 13 17.6 12.2 31.5c0 2.4.4 4.2 1.1 5.8C20 38 32.8 34.8 37.6 21.8c1.5-4.1 1.9-8.5 1.4-13.3Z"></path>
+            <path d="M11 40c2.3-9 8.4-16.7 17.4-22.5"></path>
+          </svg>
+        </div>
+        <p class="loader__eyebrow">WELCOME TO THE WOODS</p>
+        <h2>苔语小屋</h2>
+        <div class="loader__line"><span></span></div>
+        <p class="loader__hint">正在穿过林雾…</p>
+      </div>
+    </div>
+
+    <noscript class="noscript">请开启 JavaScript 以进入这片森林。</noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
