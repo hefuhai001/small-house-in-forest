@@ -130,6 +130,7 @@ npx wrangler pages deploy dist --project-name=moss-and-meadow --branch=main
 │       ├── creatures.js       # 猫头鹰、松鼠、小鸟、蝴蝶与蜜蜂
 │       └── weather.js         # 四种天气、天空、云、雨、雾与萤火
 ├── screenshots/               # README 展示图
+├── PROMPT.md                  # 网站提示词存档与需求拆解
 └── package.json
 ```
 
@@ -138,3 +139,4 @@ npx wrangler pages deploy dist --project-name=moss-and-meadow --branch=main
 - 建议使用支持 WebGL 2 的现代浏览器（Chrome、Edge、Safari 或 Firefox）。
 - 场景会依据屏幕尺寸自动调整界面布局；移动端同样支持触摸旋转和缩放。
 - 实时渲染包含阴影、粒子与大量实例化植被，桌面端体验最佳。
+- 原始网站提示词与需求拆解见 [PROMPT.md](./PROMPT.md)。

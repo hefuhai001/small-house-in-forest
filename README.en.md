@@ -130,6 +130,7 @@ Live site:
 │       ├── creatures.js       # Owl, squirrel, bluebird, butterflies and bees
 │       └── weather.js         # Weather presets, sky, clouds, rain, mist and fireflies
 ├── screenshots/               # README preview images
+├── PROMPT.md                  # Original website prompt and requirement breakdown
 └── package.json
 ```
 
